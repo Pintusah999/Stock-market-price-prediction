@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> predictions</title>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- custom css link -->
+    <link rel="stylesheet" href="./static/css/style.css">
+</head>
+<body>
+    
+    <!-- header section starts -->
+
+<header class="header">
+
+    <a data-aos="zoom-in-left" data-aos-delay="150" href="#" class="logo"> <i class="fas fa-user"></i> Prediction Store </a>
+
+    <nav class="navbar">
+        <a data-aos="zoom-in-left" data-aos-delay="300" href="#home">Home</a>
+        <a data-aos="zoom-in-left" data-aos-delay="450" href="#about">About</a>
+        <a data-aos="zoom-in-left" data-aos-delay="600" href="#services">Service</a>
+        <a data-aos="zoom-in-left" data-aos-delay="1200" href="#contact">Contact</a>
+    </nav>
+    
+    <div class="icons">
+        <div data-aos="zoom-in-left" data-aos-delay="1350" class="fas fa-moon" id="theme-btn"></div>
+        <div data-aos="zoom-in-left" data-aos-delay="1500" class="fas fa-bars" id="menu"></div>
+    </div>
+
+</header>
+
+<!-- home -->
+
+<section class="home" id="home">
+
+    <div class="content" data-aos="fade-down">
+        <h3>Enjoy predictions with our<br> Premier features and services</h3>
+        <a href="#" id="readMoreBtn1" class="btn"> see more info</a>
+        
+    </div>
+
+    <div id="modal1" class="modal1">
+        <div class="modal-content1">
+            <span class="close-btn1" id="closeModal1">&times;</span>
+            <h3 style="color: #fff;">Welcome to Prediction Store</h3>
+            <p style="color: #f8f9fa;">
+                Prediction Store is an innovative platform designed to offer users a wide range of predictive tools and services. Whether you’re an individual looking for personalized predictions or a business seeking data-driven insights, Prediction Store provides a unified space for you to access the best forecasting tools available. We integrate a variety of prediction models, ranging from machine learning algorithms to statistical analysis, making it easy for users to make informed decisions.
+                At Prediction Store, we prioritize user experience by offering an intuitive interface that allows seamless navigation across different services. Our platform is built to cater to a wide array of industries, including finance, retail, healthcare, and more. Whether you're looking to predict market trends, customer behavior, or even weather forecasts, we have the tools you need to stay ahead of the curve.
+                What sets Prediction Store apart is our commitment to accuracy and reliability. We partner with industry experts to ensure that the predictions generated on our platform are based on the latest and most accurate data available. Users can trust that the insights they gain from our platform are actionable and dependable, helping them make better decisions in both personal and professional settings.
+                Our goal is to empower users with the knowledge and tools they need to anticipate future outcomes and plan accordingly. With Prediction Store, the future is at your fingertips.</p>
+        </div>
+    </div>
+ <!-- Chatbot Button -->
+ <div class="chatbot-button" onclick="toggleChat()">
+    <img src="./static/images/bot.png" alt="Chatbot">
+</div>
+
+<!-- Chatbot Pop-up -->
+<div id="chatbot-popup" class="chatbot-popup">
+    <div class="chatbot-header">
+        <h3>Chatbot</h3>
+        <span onclick="toggleChat()" class="close-btn">&times;</span>
+    </div>
+    <div class="chatbot-body" id="chatbot-body">
+        <div class="chatbot-message bot">
+            <img src="./static/images/bot1.jpg" class="profile-icon" alt="Bot Icon">
+            <span>Hello! How can I assist you today?</span>
+        </div>
+    </div>
+    
+    <input type="text" id="user-input" placeholder="Type a message..." class="chatbot-input" onkeydown="if(event.key === 'Enter') sendMessage()">
+
+</div>
+
+
+</section>
+
+<!-- end -->
+
+<!-- about -->
+
+<section class="about" id="about">
+
+    <h1 class="heading"> <span>about</span> us</h1>
+
+    <div class="row">
+        
+        <div class="content" data-aos="fade-up" data-aos-delay="150">
+            <h3>Always at service</h3>
+            <p>When building your team, look for individuals who not only have the necessary skills and experience but also share a passion for creating innovative and accurate predictions. Strong communication and collaboration are key to ensuring that everyone works together effectively to deliver reliable insights and solutions that meet the needs of your clients.</p>
+            <button class="btn" id="readMoreBtn">Read More</button>
+        </div>
+
+                <!-- Modal -->
+                <div id="modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-btn" id="closeModal">&times;</span>
+                        <h3 style="color: #fff;">Welcome to Prediction Store</h3>
+                        <p style="color: #f8f9fa;">
+                            Modern web prediction platforms often integrate multiple technologies, such as artificial intelligence, real-time analytics, and user-friendly interfaces, to make their services accessible and efficient. They may also allow users to input custom datasets or criteria to tailor predictions to specific needs. For example, in e-commerce, a prediction platform can forecast customer purchasing patterns, helping businesses optimize inventory management and marketing strategies.
+
+                            Furthermore, these platforms are becoming increasingly interactive and collaborative, enabling integration with other tools, APIs, and applications to provide seamless workflows. As technology evolves, web prediction platforms are expected to play an even more significant role in shaping industries by enabling precise and proactive decision-making.
+                        </p>
+                    </div>
+                </div>
+
+        <div class="image" data-aos="fade-down" data-aos-delay="300">
+            <img src="./static/images/1.png" alt="">
+        </div>
+    </div>
+</section>
+
+<!-- end -->
+
+<section class="services" id="services">
+
+    <h1 class="heading">OUR SERVICES</h1>
+
+    <div class="box-container">
+
+        <div class="box" data-aos="zoom-in" data-aos-delay="150">
+            <img src="./static/images/house.png" alt="">
+            <h3>House price predictions</h3>
+            <p>Through Our Expertise, Your Home’s True Value Reveals: Accurate and Comprehensive House Price Prediction Services</p>
+            <a  id="readMoreBtn5" class="btn">Learn More</a>
+
+        <div id="modal5" class="modal5">
+            <div class="modal-content5">
+                <span class="close-btn5" id="closeModal5">&times;</span>
+                <h3 style="color: #fff;">Welcome to House prediction service</h3>
+                <p>"Accurately forecasting future home values to make smarter real estate decisions."</p>
+                <p style="color: #f8f9fa;">
+                    </p>
+                    <a href="{{ url_for('house') }}" class="btn">Click here</a>
+            </div>
+        </div>
+        </div>
+
+    <div class="box" data-aos="zoom-in" data-aos-delay="300">
+        <img src="./static/images/stock.jpg" alt="">
+        <h3>Stock market prediction</h3>
+        <p>Thriving Markets: Crafting Strategic Insights for Your Stock Investment Journey</p>
+        <a  id="readMoreBtn4" class="btn">Learn More</a>
+
+        <div id="modal4" class="modal4">
+            <div class="modal-content4">
+                <span class="close-btn4" id="closeModal4">&times;</span>
+                <h3 style="color: #fff;">Welcome to Stock prediction service</h3>
+                <p>"Empowering investments with accurate stock market foresight."</p>
+                <p style="color: #f8f9fa;">
+                    </p>
+                    <a href="{{ url_for('stock') }}" class="btn">Click here</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="box" data-aos="zoom-in" data-aos-delay="450">
+        <img src="./static/images/car.png" alt="">
+        <h3>Car price prediction</h3>
+        <p>Accurate Estimates, Smart Decisions: Discover Your Car’s True Value with Our Price Prediction Services</p>
+        <a  id="readMoreBtn3" class="btn">Learn More</a>
+
+        <div id="modal3" class="modal3">
+            <div class="modal-content3">
+                <span class="close-btn3" id="closeModal3">&times;</span>
+                <h3 style="color: #fff;">Welcome to Car prediction service</h3>
+                <p>"Driving smarter deals with precise future car value insights."</p>
+                <p style="color: #f8f9fa;">
+                    </p>
+                    <a href="{{ url_for('car') }}" class="btn">Click here</a>
+            </div>
+        </div>
+    </div>
+
+
+   
+
+    </div>
+
+</section>
+
+<!-- service end-->
+
+<!-- plan section ends -->
+
+<section class="gallery" id="gallery">
+
+    <h1 class="heading"> <span>our</span> gallery</h1>
+
+    <div class="swiper gallery-slider" data-aos="fade-up">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="./static/images/1.png" alt=""></div>
+            <div class="swiper-slide"><img src="./static/images/2.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="./static/images/3.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="./static/images/4.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="./static/images/hhh.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="./static/images/5.png" alt=""></div>
+            <div class="swiper-slide"><img src="./static/images/6.jpg" alt=""></div>
+        </div>
+    </div>
+
+</section>
+    <!-- review section starts  -->
+
+<section class="review" id="review">
+
+    <h1 class="heading"> client's review </h1>
+
+    <div class="swiper review-slider" data-aos="zoom-in">
+
+        <div class="swiper-wrapper">
+
+            <div class="swiper-slide slide">
+                <img src="./static/images/pic-1.png" alt="">
+                <h3>Mr. Jhon</h3>
+                <p>Our experience with Prediction store was exceptional, and it’s all thanks to their predictive platform! Every forecast was accurate, and their insights helped us make informed decisions, making our journey truly successful.</p>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+
+            <div class="swiper-slide slide">
+                <img src="./static/images/pic-2.png" alt="">
+                <h3>Miss Mary</h3>
+                <p>From the first consultation to the final prediction, Prediction store exceeded our expectations. Professional, insightful, and utterly dedicated to delivering accurate forecasts that brought our vision to life!</p>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+
+            <div class="swiper-slide slide">
+                <img src="./static/images/pic-3.png" alt="">
+                <h3>Mr. Hari</h3>
+                
+<p>Choosing Prediction Store was the best decision we made. They navigated every market shift with precision, and their insights made our investment journey feel like a success story come true.
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+
+            <div class="swiper-slide slide">
+                <img src="./static/images/pic-4.png" alt="">
+                <h3>Miss Rose</h3>
+                <p>Choosing Prediction store was the best decision we made. They navigated every prediction with precision, and their insights made our journey feel like a success story come true.</p>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="swiper-pagination"></div>
+
+    </div>
+
+</section>
+
+<!-- review section ends -->
+
+<!-- team -->
+
+
+
+<!-- end -->
+
+
+ <!-- contact section starts  -->
+
+<section class="contact" id="contact">
+
+    <h1 class="heading"> <span>contact</span> us </h1>
+
+    <form action="" data-aos="zoom">
+
+        <div class="inputBox">
+            <input type="text" placeholder="name" data-aos="fade-up">
+            <input type="email" placeholder="email" data-aos="fade-up">
+        </div>
+
+        <div class="inputBox">
+            <input type="number" placeholder="number" data-aos="fade-up">
+            <input type="date" data-aos="fade-up">
+        </div>
+
+        <div class="inputBox">
+            <input type="text" placeholder="your address" data-aos="fade-up">
+            <select name="plan" data-aos="fade-up">
+            <option value="basic">basic plan</option>
+            <option value="premium">premium plan</option>
+            <option value="ultimate">ultimate plan</option>
+            </select>
+        </div>
+
+        <textarea name="" placeholder="your message" id="" cols="30" rows="10" data-aos="fade-up"></textarea>
+        
+        <a href="#" class="btn">send message</a>
+
+    </form>
+
+</section>
+
+<!-- contact section ends -->
+
+<!-- footer -->
+
+<section class="footer">
+
+    <div class="box-container">
+
+    <div class="box" data-aos="fade-up">
+        <h3> <i class="fas fa-user"></i> Price prediction </h3>
+        <p>We are a team of experienced analysts dedicated to providing accurate and reliable price predictions to help our clients make informed decisions.</p>
+    </div>
+
+    <div class="box" data-aos="fade-up">
+        <h3>Our Services</h3>
+        <a href="#"><i class="fas fa-chevron-right"></i> Stock market price prediction</a>
+        <a href="#"><i class="fas fa-chevron-right"></i> Car price prediction</a>
+        <a href="#"><i class="fas fa-chevron-right"></i> house price prediction</a>
+        <a href="#"><i class="fas fa-chevron-right"></i> gold price prediction</a>
+    </div>
+
+    <div class="box" data-aos="fade-up">
+        <h3>Contact Us</h3>
+        <a href="#"><i class="fas fa-phone"></i> +97-8709491230</a>
+        <a href="#"><i class="fas fa-phone"></i> +91-8866806760</a>
+        <a href="#"><i class="fas fa-envelope"></i> info@predictionstore.com</a>
+        <a href="#"><i class="fas fa-map"></i> 123 Main St, Bengaluru india</a>
+    </div>
+
+    <div class="box" data-aos="fade-up">
+        <h3>Follow Us</h3>
+        <a href="#"> <i class="fab fa-facebook-f"></i> facebook </a>
+        <a href="#"> <i class="fab fa-twitter"></i> twitter </a>
+        <a href="#"> <i class="fab fa-instagram"></i> instagram </a>
+        <a href="#"> <i class="fab fa-pinterest"></i> pinterest </a>
+    </div>
+    </div>
+
+    
+
+</footer>
+
+
+
+
+
+<!-- end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    const chatbotBody = document.getElementById('chatbot-body');
+    const userInput = document.getElementById('user-input');
+
+    function toggleChat() {
+        const chatbotPopup = document.getElementById('chatbot-popup');
+        chatbotPopup.style.display = chatbotPopup.style.display === 'block' ? 'none' : 'block';
+    }
+    
+    function sendMessage() {
+        const message = userInput.value.trim();
+        if (!message) return;
+
+        // Display the user's message
+        const userMessageDiv = document.createElement('div');
+        userMessageDiv.className = 'chatbot-message user';
+        userMessageDiv.innerHTML = `<span>${message}</span>`;
+        chatbotBody.appendChild(userMessageDiv);
+
+        // Clear the input field
+        userInput.value = '';
+
+        // Send the message to the backend
+        fetch('/chatbot', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Display the bot's reply
+            const botMessageDiv = document.createElement('div');
+            botMessageDiv.className = 'chatbot-message bot';
+            botMessageDiv.innerHTML = `<img src="./static/images/bot1.jpg" class="profile-icon" alt="Bot Icon">
+                                       <span>${data.bot_reply || 'Sorry, I could not understand that.'}</span>`;
+            chatbotBody.appendChild(botMessageDiv);
+
+            // Scroll to the bottom of the chatbot
+            chatbotBody.scrollTop = chatbotBody.scrollHeight;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+</script>
+
+<script src="./static/js/script.js"></script>
+
+</body>
+</html>

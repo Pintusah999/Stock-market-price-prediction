@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Price Prediction</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('./static/images/ccc.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+        }
+        .container {
+            /* Semi-transparent black */
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 50px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            box-shadow: 0 0 10px #0056b3;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        .btn-warning {
+            background-color: #ffc107;
+            border: none;
+        }
+        .btn-warning:hover {
+            background-color: #d39e00;
+        }
+        .ai-suggestion {
+            background: #007bff; /* Light background */
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .ai-suggestion h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .ai-suggestion ul {
+            padding-left: 20px;
+        }
+        .ai-suggestion p {
+            margin: 10px 0;
+        }
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            padding: 10px 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            border-top: 1px solid #444;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="container mt-5">
+        <h2 class="text-center">Car Price Prediction</h2>
+        <form method="POST" action="/car" class="mt-4">
+            <div class="mb-3">
+                <label for="symboling" class="form-label">Symboling</label>
+                <input type="text" id="symboling" name="symboling" class="form-control" placeholder="Enter symboling value" required>
+            </div>
+            <div class="mb-3">
+                <label for="fueltype" class="form-label">Fuel Type</label>
+                <select id="fueltype" name="fueltype" class="form-select" required>
+                    <option value="gas">Gas</option>
+                    <option value="diesel">Diesel</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="aspiration" class="form-label">Aspiration</label>
+                <select id="aspiration" name="aspiration" class="form-select" required>
+                    <option value="std">Standard</option>
+                    <option value="turbo">Turbo</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="carbody" class="form-label">Car Body</label>
+                <select id="carbody" name="carbody" class="form-select" required>
+                    <option value="sedan">Sedan</option>
+                    <option value="hatchback">Hatchback</option>
+                    <option value="suv">SUV</option>
+                    <option value="wagon">Wagon</option>
+                    <option value="convertible">Convertible</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="drivewheel" class="form-label">Drive Wheel</label>
+                <select id="drivewheel" name="drivewheel" class="form-select" required>
+                    <option value="fwd">FWD</option>
+                    <option value="rwd">RWD</option>
+                    <option value="4wd">4WD</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="enginesize" class="form-label">Engine Size</label>
+                <input type="number" id="enginesize" name="enginesize" class="form-control" placeholder="Enter engine size" required>
+            </div>
+            <div class="mb-3">
+                <label for="horsepower" class="form-label">Horsepower</label>
+                <input type="number" id="horsepower" name="horsepower" class="form-control" placeholder="Enter horsepower" required>
+            </div>
+            <div class="mb-3">
+                <label for="citympg" class="form-label">City MPG</label>
+                <input type="number" id="citympg" name="citympg" class="form-control" placeholder="Enter city MPG" required>
+            </div>
+            <div class="mb-3">
+                <label for="highwaympg" class="form-label">Highway MPG</label>
+                <input type="number" id="highwaympg" name="highwaympg" class="form-control" placeholder="Enter highway MPG" required>
+            </div>
+            <div class="mb-3">
+                <label for="curbweight" class="form-label">Curb Weight</label>
+                <input type="number" id="curbweight" name="curbweight" class="form-control" placeholder="Enter curb weight" required>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Predict Price</button>
+                <button type="submit" name="action" value="ai_suggestion" class="btn btn-warning">AI Suggestion</button>
+                <a href="/" class="btn btn-secondary">Back to Home</a>
+            </div>
+        </form>
+
+        <!-- Display Results -->
+        {% if prediction %}
+            <div class="alert alert-success mt-4">
+                <h3>Predicted Car Price:</h3>
+                <p class="fs-3">$ {{ prediction }}</p>
+            </div>
+        {% endif %}
+        {% if error %}
+            <div class="alert alert-danger mt-4">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        {% if ai_suggestion %}
+            <div class="ai-suggestion mt-4">
+                <h3>AI Suggestion:</h3>
+                <!-- <p><strong>Car Attributes:</strong> {{ car_attributes }}</p>
+                <p><strong>Predicted Price:</strong> $ {{ predicted_price }}</p>
+                <p><strong>Analysis:</strong></p> -->
+                <p>{{ ai_suggestion }}</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Car Price Predictor | All rights reserved</p>
+    </footer>
+</body>
+</html>

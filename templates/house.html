@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Prediction</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <style>
+        /* Global Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        #background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            transition: background-image 0.8s ease-in-out;
+            filter: brightness(0.5) blur(4px);
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.4);
+            animation: slideIn 1s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1e90ff;
+            font-weight: 600;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+            color: #555;
+        }
+
+        input, select {
+            font-size: 1rem;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            transition: all 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:hover, select:hover {
+            box-shadow: 0px 4px 12px rgba(30, 144, 255, 0.3);
+            background: #f9f9f9;
+        }
+
+        input:focus, select:focus {
+            border-color: #1e90ff;
+            outline: none;
+            box-shadow: 0px 4px 15px rgba(30, 144, 255, 0.5);
+        }
+
+        button {
+            font-size: 1.2rem;
+            padding: 12px 20px;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.4s, box-shadow 0.4s;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0px 10px 20px rgba(106, 17, 203, 0.5);
+        }
+
+        .back-button {
+            margin-top: 20px;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+        }
+
+        .back-button:hover {
+            box-shadow: 0px 10px 20px rgba(255, 65, 108, 0.6);
+        }
+
+        /* Output Section Styles */
+        .output-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+            animation: fadeIn 1.2s ease;
+        }
+
+        .output-section h4 {
+            font-size: 2.2rem;
+            color: #007bff;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .output-section p {
+            font-size: 1.2rem;
+            color: #333;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .suggestion-output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="background"></div>
+
+    <div class="container mt-5">
+        <div class="form-container">
+            <h2 class="form-title">🏠 House Price Prediction</h2>
+            <form method="POST" action="/house">
+                <div class="mb-3">
+                    <label for="city" class="form-label">City</label>
+                    <select id="city" name="city" class="form-select" onchange="updateBackground()" required>
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Bangalore">Bangalore</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="location" class="form-label">Location/Area</label>
+                    <input type="text" id="location" name="location" class="form-control" placeholder="Enter location" required>
+                </div>
+                <div class="mb-3">
+                    <label for="area" class="form-label">Area (sq ft)</label>
+                    <input type="number" id="area" name="area" class="form-control" placeholder="Enter area in sq ft" required>
+                </div>
+                <div class="mb-3">
+                    <label for="bedrooms" class="form-label">No. of Bedrooms</label>
+                    <input type="number" id="bedrooms" name="bedrooms" class="form-control" placeholder="Enter number of bedrooms" required>
+                </div>
+                <div class="mb-3">
+                    <label for="gym" class="form-label">Gymnasium</label>
+                    <select id="gym" name="gym" class="form-select" required>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="pool" class="form-label">Swimming Pool</label>
+                    <select id="pool" name="pool" class="form-select" required>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+                <button type="submit">Predict Price</button>
+            </form>
+            <a href="/" class="btn back-button w-100">🔙 Back to Home</a>
+            {% if prediction %}
+            <div class="output-section">
+                <h4>🏡 Predicted Price: ₹ {{ prediction }}</h4>
+                <p>
+                    Congratulations! Based on your input, we have calculated the house price for the given location and amenities.
+                </p>
+            </div>
+            {% elif error %}
+            <div class="output-section">
+                <h4>❌ Error:</h4>
+                <p>{{ error }}</p>
+            </div>
+            {% endif %}
+
+            <!-- AI Suggestion Button -->
+            <div style="text-align: center; margin-top: 20px;">
+                <button id="aiSuggestionButton">Get AI Suggestion</button>
+            </div>
+
+            <!-- Suggestion Output -->
+            <div id="suggestionOutput" class="suggestion-output">
+                <strong>AI Suggestion:</strong>
+                <p id="suggestionText"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to handle AI Suggestion functionality
+        const aiSuggestionButton = document.getElementById('aiSuggestionButton');
+        const suggestionOutput = document.getElementById('suggestionOutput');
+        const suggestionText = document.getElementById('suggestionText');
+
+        aiSuggestionButton.addEventListener('click', async () => {
+    // Collect form data
+            const city = document.getElementById('city').value;
+            const location = document.getElementById('location').value.trim();
+            const area = document.getElementById('area').value.trim();
+            const bedrooms = document.getElementById('bedrooms').value.trim();
+            const gym = document.getElementById('gym').value;
+            const pool = document.getElementById('pool').value;
+
+            if (!city || !location || !area || !bedrooms || !gym || !pool) {
+                alert('Please fill out all fields before requesting a suggestion.');
+                return;
+            }
+
+            suggestionText.textContent = 'Fetching AI suggestion...';
+            suggestionOutput.style.display = 'block';
+
+            try {
+                const response = await fetch('/house-ai-suggestion', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        city,
+                        location,
+                        area,
+                        bedrooms,
+                        gym,
+                        pool
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch AI suggestion.');
+                }
+
+                const data = await response.json();
+                if (data.error) {
+                    suggestionText.textContent = `Error: ${data.error}`;
+                } else {
+                    suggestionText.textContent = data.output || 'No suggestion received.';
+                }
+            } catch (error) {
+                suggestionText.textContent = `Error: ${error.message}`;
+            }
+        });
+
+
+        function updateBackground() {
+            const city = document.getElementById('city').value;
+            const background = document.getElementById('background');
+            if (city === 'Mumbai') {
+                background.style.backgroundImage = "url('./static/images/hhh.jpg')";
+            } else if (city === 'Delhi') {
+                background.style.backgroundImage = "url('./static/images/hhh1.jpg')";
+            } else if (city === 'Bangalore') {
+                background.style.backgroundImage = "url('./static/images/hhh2.jpg')";
+            }
+        }
+
+        // Initialize with Mumbai as default
+        document.addEventListener('DOMContentLoaded', () => {
+            updateBackground();
+        });
+    </script>
+</body>
+</html>

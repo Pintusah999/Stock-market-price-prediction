@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Price Prediction</title>
+    <style>
+        body {
+            background-image: url('./static/images/6.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h3 {
+            text-align: center;
+            color: #333;
+        }
+
+        .result {
+            text-align: center;
+        }
+        .graph {
+            margin-top: 30px;
+        }
+
+        .graph iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            font-size: 16px;
+            width: 200px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 8px 16px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .suggestion-output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Stock Price Prediction</h1>
+</header>
+
+<div class="container">
+    <h3>Enter Stock Ticker (e.g., AAPL, TSLA):</h3>
+    <form method="POST" action="/stock">
+        <input type="text" id="ticker" name="ticker" required>
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if error %}
+    <div style="color: red; text-align: center;">
+        <strong>Error: {{ error }}</strong>
+    </div>
+    {% endif %}
+
+    {% if img_base64_actual and img_base64_predicted %}
+    <div class="result">
+        <h3>Predictions for {{ ticker }}</h3>
+
+        <!-- Actual Data Graph -->
+        <div>
+            <h4>Actual Stock Price for {{ ticker }}</h4>
+            <div class="graph">
+                <iframe srcdoc="{{ img_base64_actual }}" width="100%" height="500px" frameborder="0"></iframe>
+            </div>
+        </div>
+
+        <!-- Predicted Data Graph -->
+        <div>
+            <h4>Predicted Stock Price for {{ ticker }}</h4>
+            <div class="graph">
+                <iframe srcdoc="{{ img_base64_predicted }}" width="100%" height="500px" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div style="text-align: center; margin-top: 20px;">
+        <!-- Back Button -->
+        <button onclick="window.location.href='/'">Back</button>
+    </div>  
+
+    <div style="text-align: center; margin-top: 20px;">
+        <!-- AI Suggestion Button -->
+        <button id="aiSuggestionButton">Get AI Suggestion</button>
+    </div>
+
+    <!-- Suggestion Output -->
+    <div id="suggestionOutput" class="suggestion-output">
+        <strong>AI Suggestion:</strong>
+        <p id="suggestionText"></p>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>&copy; 2024 Stock Price Prediction | Built with Flask and Machine Learning</p>
+</footer>
+
+<script>
+    // JavaScript to handle AI Suggestion functionality
+    const aiSuggestionButton = document.getElementById('aiSuggestionButton');
+    const suggestionOutput = document.getElementById('suggestionOutput');
+    const suggestionText = document.getElementById('suggestionText');
+
+    aiSuggestionButton.addEventListener('click', async () => {
+    const ticker = document.getElementById('ticker').value.trim();
+
+    if (!ticker) {
+        alert('Please enter a stock ticker before requesting a suggestion.');
+        return;
+    }
+
+    suggestionText.textContent = 'Fetching AI suggestion...';
+    suggestionOutput.style.display = 'block';
+
+    try {
+        const response = await fetch('/ai-suggestion', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ ticker }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch AI suggestion.');
+        }
+
+        const data = await response.json();
+        suggestionText.textContent = data.output || 'No suggestion received.';
+    } catch (error) {
+        suggestionText.textContent = `Error: ${error.message}`;
+    }
+});
+
+</script>
+
+</body>
+</html>
